@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "app.email",
+      "type": "java.lang.String",
+      "sourceType": "br.com.authservice.config.AppEmailProperties",
+      "description": "Propriedades de email da aplicação (remetente, etc)."
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.email.from",
+      "type": "java.lang.String",
+      "description": "Endereço de email remetente padrão usado para envio de emails pelo auth-service (ex: noreply@confia-aqui.com).",
+      "defaultValue": "noreply@confia-aqui.com"
+    }
+  ]
+}
