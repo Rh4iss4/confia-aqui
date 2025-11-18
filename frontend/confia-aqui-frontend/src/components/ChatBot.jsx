@@ -20,7 +20,7 @@ const ChatBot = () => {
 
   useEffect(() => {
     try {
-      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || "SUA_CHAVE_AQUI");
+      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
       modelRef.current = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     } catch (e) {
       console.warn("Erro ao inicializar GoogleGenerativeAI", e);
