@@ -3,7 +3,6 @@ import Hero from "../components/Hero"
 import CardTeste from "../components/CardTeste"
 import FAQ from "../components/FAQ"
 import ChatBot from "../components/ChatBot"
-
 function Home() {
   return (
     <div className="flex flex-col min-h-screen relative">
@@ -18,5 +17,4 @@ function Home() {
     </div>
   )
 }
-
 export default Home;
