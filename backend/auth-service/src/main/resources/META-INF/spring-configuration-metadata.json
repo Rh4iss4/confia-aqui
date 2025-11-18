@@ -5,6 +5,12 @@
       "type": "java.lang.String",
       "sourceType": "br.com.authservice.config.AppEmailProperties",
       "description": "Propriedades de email da aplicação (remetente, etc)."
+    },
+    {
+      "name": "app",
+      "type": "java.lang.Object",
+      "sourceType": "application.properties",
+      "description": "Configurações customizadas da aplicação"
     }
   ],
   "properties": [
@@ -13,6 +19,12 @@
       "type": "java.lang.String",
       "description": "Endereço de email remetente padrão usado para envio de emails pelo auth-service (ex: noreply@confia-aqui.com).",
       "defaultValue": "noreply@confia-aqui.com"
+    },
+    {
+      "name": "app.frontend.url",
+      "type": "java.lang.String",
+      "description": "URL do frontend usada para links de redefinição de senha (ex: http://localhost:5173)",
+      "defaultValue": "http://localhost:5173"
     }
   ]
 }

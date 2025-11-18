@@ -5,6 +5,7 @@ import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import BotaoForm from "../components/BotaoForm"
 import LinkTexto from "../components/LinkTexto"
 import imagemLayoutForm from "../images/imagemLayoutForm.png"
+import MessageBox from "../components/MessageBox"
 import { cadastrarUsuario } from "../services/authService"
 
 function Cadastro() {
@@ -29,6 +30,20 @@ function Cadastro() {
     if (!nome || !email || !senha) {
       setMensagem("Preencha todos os campos.")
       setTipoMensagem("erro")
+      return
+    }
+
+    if (!email.includes("@")) {
+      setMensagem("Digite um e-mail válido.")
+      setTipoMensagem("erro")
+      setErros((prev) => ({...prev, email: true}))
+      return
+    }
+
+    if (senha.length < 6) {
+      setMensagem("A senha deve ter no mínimo 6 caracteres.")
+      setTipoMensagem("erro")
+      setErros((prev) => ({...prev, senha: true}))
       return
     }
 
@@ -60,20 +75,12 @@ function Cadastro() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen w-screen">
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white p-8 sm:p-12 md:p-16">
-        <div className="w-full max-w-md">
+        <div className="w-full flex flex-col justify-center items-center">
           <h1 className="text-2xl mb-4 text-cinza-600 font-bold text-center">Cadastro</h1>
 
           {mensagem && (
-            <div
-              className={`mb-4 px-4 py-2 rounded-lg text-sm text-center font-medium transition-all duration-300 ${
-                tipoMensagem === "erro"
-                  ? "bg-red-100 text-red-700 border border-red-300"
-                  : "bg-green-100 text-green-700 border border-green-300"
-              }`}
-            >
-              {mensagem}
-            </div>
-          )}
+          <MessageBox type={tipoMensagem} mensagem={mensagem} />
+    )}
 
           <form onSubmit={fazerCadastro} className="flex flex-col gap-3 w-full">
             <label className="text-sm text-cinza-600">Nome:</label>

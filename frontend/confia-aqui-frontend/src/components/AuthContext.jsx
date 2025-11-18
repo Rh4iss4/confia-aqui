@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
       apiAuth.defaults.headers.common["Authorization"] = `Bearer ${token}`
       setUser(user)
 
-      navigate(user.role === "ADMIN" ? "admin/home" : "/home") 
+      navigate(user.role === "ADMIN" ? "/admin/home" : "/home") 
     } catch (error) {
       console.error("Erro no login:", error)
       throw error

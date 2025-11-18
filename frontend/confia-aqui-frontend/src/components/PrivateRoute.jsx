@@ -6,7 +6,11 @@ function PrivateRoute({children, role}) {
 
     if(!user) return <Navigate to="/login"/>
 
-    if(role && user.role !== role) return <Navigate to="/home" />
+    if (role) {
+        const userRole = user.role ? user.role.replace(/^ROLE_/, '') : ''
+        const requiredRole = role ? role.replace(/^ROLE_/, '') : ''
+        if (userRole !== requiredRole) return <Navigate to="/home" />
+    }
 
     return children
 }

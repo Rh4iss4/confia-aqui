@@ -130,15 +130,19 @@ public class UsuarioRestController {
 	}
 }
 
-	@PostMapping("/cadastrar")
+		@PostMapping("/cadastrar")
 	public ResponseEntity<?> cadastrar(@Valid @RequestBody UsuarioDTO dto) {
 		try {
 			Usuario usuario = new Usuario();
 			usuario.setEmail(dto.getEmail());
 			usuario.setNome(dto.getNome());
 			usuario.setSenha(dto.getSenha());
+			if (dto.getRole() != null && !dto.getRole().isBlank()) {
+				usuario.setRole(dto.getRole());
+			}
 			usuarioService.salvar(usuario);
 			dto.setId(usuario.getId());
+			dto.setRole(usuario.getRole()); 
 			return ResponseEntity.status(HttpStatus.CREATED).body(dto);
 		} catch (IllegalArgumentException ex) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));

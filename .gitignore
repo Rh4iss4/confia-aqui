@@ -3,17 +3,13 @@ HELP.md
 
 # ================= Back-end (Java / Maven) =================
 # Ignorar target do backend
-backend/target/
+backend/**/target/
 backend/*.jar
 backend/*.war
 backend/*.ear
 
 # Maven wrapper
 backend/.mvn/wrapper/maven-wrapper.jar
-
-# Mas manter src/main e src/test
-!backend/**/src/main/**/target/
-!backend/**/src/test/**/target/
 
 # ================= IDEs =================
 # STS

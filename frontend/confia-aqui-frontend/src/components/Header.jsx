@@ -11,9 +11,9 @@ function Header() {
   const {logout} = useAuth()
 
   return (
-    <header className="relative flex items-center justify-between px-4 py-3 bg-white shadow-md z-50">
+    <header className="fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 bg-white shadow-md z-50">
       <button
-        className="md:hidden text-cinza-600 flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition"
+        className="md:hidden text-azul flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition"
         onClick={() => setMenuAberto(!menuAberto)}
         >
         <FontAwesomeIcon
@@ -32,7 +32,7 @@ function Header() {
 
           {dropDownAberto && (
             <div className="absolute right-0 top-12 w-48 bg-white border border-gray-200 rounded-lg shadow-lg text-sm animate-fadeIn z-50">
-              <ul className="py-2 text-cinza-600">
+              <ul className="py-2 text-azul">
                 <li className="block w-full px-4 py-2 hover:bg-gray-300 rounded-md cursor-pointer">
                   <Link to="/perfil" className="hover:text-azul">Meu Perfil</Link></li>
                 </ul>

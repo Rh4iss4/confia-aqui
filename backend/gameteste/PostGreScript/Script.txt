@@ -1,0 +1,36 @@
+CREATE TABLE Question (
+    id SERIAL PRIMARY KEY,
+    question_title TEXT NOT NULL,
+    option1 TEXT NOT NULL,
+    option2 TEXT NOT NULL,
+    option3 TEXT NOT NULL,
+    option4 TEXT NOT NULL,
+    right_answer TEXT NOT NULL,
+    difficulty_level TEXT NOT NULL,
+    category TEXT NOT NULL
+);
+
+
+INSERT INTO Question (question_title, option1, option2, option3, option4, right_answer, difficulty_level, category)
+ -- a principio opcao1 eh a certa default
+VALUES
+    ('Pergunta 1, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria1'), 
+    ('Pergunta 2, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria1'),
+    ('Pergunta 3, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria5'),
+    ('Pergunta 4, blablabla??', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Medium', 'categoria1'),
+    ('Pergunta 5, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Medium', 'categoria1'),
+    ('Pergunta 6, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Hard', 'categoria1'),
+    ('Pergunta 7, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria4'),
+    ('Pergunta 8, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria2'),
+    ('Pergunta 9, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria1'),
+    ('Pergunta 10, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Medium', 'categoria1'),
+    ('Pergunta 11, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Medium', 'categoria2'),
+    ('Pergunta 12, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Medium', 'categoria1'),
+    ('Pergunta 13, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Medium', 'categoria3'),
+    ('Pergunta 14, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria1'),
+    ('Pergunta 15, blablabla?', 'opcao1', 'opcao2', 'opcao3', 'opcao4', 'opcao1', 'Easy', 'categoria2');
+
+	SELECT * FROM Question
+
+
+

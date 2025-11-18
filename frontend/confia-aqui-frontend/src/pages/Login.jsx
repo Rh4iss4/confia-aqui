@@ -5,6 +5,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
 import BotaoForm from "../components/BotaoForm"
 import LinkTexto from "../components/LinkTexto"
 import imagemLayoutForm from "../images/imagemLayoutForm.png"
+import MessageBox from "../components/MessageBox"
 import { loginUser } from "../services/authService"
 
 function Login() {
@@ -41,51 +42,39 @@ function Login() {
         try {
           const resposta = await loginUser(email, senha)
 
+          if (resposta && resposta.token && resposta.user) {
+            localStorage.setItem("token", resposta.token)
+            localStorage.setItem("user", JSON.stringify(resposta.user))
 
-          if (resposta.status === 200 && resposta.data.token) {
-          localStorage.setItem("token", resposta.data.token)
-          localStorage.setItem("usuario", JSON.stringify(resposta.data.usuario))
+            setMensagem("Login realizado com sucesso!")
+            setTipoMensagem("sucesso")
 
-
-          setMensagem("Login realizado com sucesso!")
-          setTipoMensagem("sucesso")
-
-
-          setTimeout(() => navigate("/home"), 1500)
-        } else {
-          setMensagem("Erro inesperado ao fazer login.")
+            const role = resposta.user.role ? resposta.user.role.toUpperCase() : "USER"
+            setTimeout(() => navigate(role === "ADMIN" ? "/admin/home" : "/home"), 1500)
+          } else {
+            setMensagem("Erro inesperado ao fazer login.")
+            setTipoMensagem("erro")
+          }
+        } catch (erro) {
+          console.error("Erro ao fazer login:", erro)
+          if (erro.response?.status === 401) {
+            setMensagem("E-mail ou senha incorretos.")
+          } else {
+            setMensagem("Erro ao conectar com o servidor.")
+          }
           setTipoMensagem("erro")
         }
-      } catch (erro) {
-        console.error("Erro ao fazer login:", erro)
-        if (erro.response?.status === 401) {
-          setMensagem("E-mail ou senha incorretos.")
-        } else {
-          setMensagem("Erro ao conectar com o servidor.")
-        }
-        setTipoMensagem("erro")
-      }
     }
 
     return (
        <div className="flex h-screen w-screen flex-col md:flex-row">
   <div className="w-full md:w-1/2 h-[50vh] md:h-full flex flex-col justify-center items-center p-8 sm:p-12 md:p-16 bg-white">
-    <div className="w-full max-w-md">
+    <div className="w-full flex flex-col justify-center items-center">
       <h1 className="text-2xl mb-4 text-cinza-600 font-bold text-center">Login</h1>
 
-
       {mensagem && (
-        <div
-          className={`mb-4 px-4 py-2 rounded-lg text-sm text-center font-medium transition-all duration-300 ${
-            tipoMensagem === "erro"
-              ? "bg-red-100 text-red-700 border border-red-300"
-              : "bg-green-100 text-green-700 border border-green-300"
-          }`}
-        >
-          {mensagem}
-        </div>
-      )}
-
+          <MessageBox type={tipoMensagem} mensagem={mensagem} />
+    )}
 
       <form onSubmit={fazerLogin} className="flex flex-col gap-3 w-full">
         <label className="text-sm text-cinza-600">Email:</label>
@@ -98,7 +87,6 @@ function Login() {
           isErro={erros.email}
         />
 
-
         <label className="text-sm text-cinza-600">Senha:</label>
         <Input
           type="password"
@@ -109,9 +97,7 @@ function Login() {
           isErro={erros.senha}
         />
 
-
         <BotaoForm text="Login" onClick={fazerLogin} />
-
 
         <div className="flex justify-between text-sm mt-1 gap-4">
           <LinkTexto to={"/esqueci-senha"} text="Esqueceu a senha?" />
@@ -120,7 +106,6 @@ function Login() {
       </form>
     </div>
   </div>
-
 
   <div className="w-full md:w-1/2 h-[50vh] md:h-full flex items-center justify-center bg-azul p-8 md:p-0">
     <img

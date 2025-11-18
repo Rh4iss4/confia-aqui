@@ -3,7 +3,7 @@ import imagemHero from "../images/imagemHero.png"
 function Hero() {
   return (
     <section
-  className="relative w-screen min-h-[70vh] md:min-h-[90vh] flex items-center justify-start px-8 text-white" style={{backgroundImage: `url(${imagemHero})`, backgroundSize: "cover", backgroundPosition: "center"}}>
+  className="relative w-screen min-h-[70vh] md:min-h-[90vh] flex items-center justify-start px-8 pt-16 text-white" style={{backgroundImage: `url(${imagemHero})`, backgroundSize: "cover", backgroundPosition: "center"}}>
 
   <div className="relative text-start max-w-2xl px-4">
     <h2 className="text-4xl md:text-5xl font-bold mb-4">Passou por um golpe?</h2>

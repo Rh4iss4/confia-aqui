@@ -25,6 +25,9 @@ public void salvar(Usuario usuario) {
     }
 
     usuario.setSenha(encoder.encode(usuario.getSenha()));
+    if (usuario.getRole() == null || usuario.getRole().isBlank()) {
+        usuario.setRole("ROLE_USER");
+    }
 
     repository.save(usuario);
 }
@@ -49,28 +52,24 @@ public void salvar(Usuario usuario) {
         return existing;
     }
 
-    public Usuario alterarSenha(String email, String currentPassword, String newPassword, String confirmPassword) {
-        Usuario existing = repository.findByEmail(email);
-        if (existing == null) throw new IllegalArgumentException("Usuário não encontrado: " + email);
-
-        if (!encoder.matches(currentPassword, existing.getSenha())) {
-            throw new IllegalArgumentException("Senha atual incorreta");
-        }
-        if (newPassword == null || !newPassword.equals(confirmPassword)) {
-            throw new IllegalArgumentException("Confirmação de senha não confere");
-        }
-        if (newPassword.length() < 6) {
-            throw new IllegalArgumentException("A nova senha deve ter ao menos 6 caracteres");
-        }
-
-        existing.setSenha(encoder.encode(newPassword));
-        repository.save(existing);
-        return existing;
+@Transactional
+public Usuario alterarSenha(String email, String senhaAtual, String novaSenha, String confirmarSenha) {
+    Usuario existing = repository.findByEmail(email);
+    if (existing == null) {
+        throw new IllegalArgumentException("Usuário não encontrado");
     }
-
-    public void deletarPorEmail(String email) {
-        repository.deleteByEmail(email);
+    if (!encoder.matches(senhaAtual, existing.getSenha())) {
+        throw new IllegalArgumentException("Senha atual incorreta");
     }
+    if (!novaSenha.equals(confirmarSenha)) {
+        throw new IllegalArgumentException("A confirmação de senha não confere");
+    }
+    if (novaSenha.length() < 6) {
+        throw new IllegalArgumentException("A nova senha deve ter ao menos 6 caracteres");
+    }
+    existing.setSenha(encoder.encode(novaSenha));
+    return repository.save(existing);
+}
 
     @Transactional
     public void deletarPorEmailComSenha(String email, String senha) {

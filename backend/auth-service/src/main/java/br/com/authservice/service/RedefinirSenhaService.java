@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import br.com.authservice.entity.RedefinirSenha;
@@ -27,6 +28,9 @@ public class RedefinirSenhaService {
     @Autowired
     private EmailService emailService;
 
+    @Value("${app.frontend.url}")
+    private String frontendUrl;
+
     private final int EXPIRATION_MINUTES = 60;
 
     public void gerarToken(String email, String baseUrl) {
@@ -39,7 +43,7 @@ public class RedefinirSenhaService {
         tokenEntity.setExpiryDate(LocalDateTime.now().plusMinutes(EXPIRATION_MINUTES));
         redefinirSenhaRepository.save(tokenEntity);
 
-        String link = baseUrl + "/redefinir-senha?token=" + tokenEntity.getToken();
+        String link = frontendUrl + "/redefinir-senha?token=" + tokenEntity.getToken();
         emailService.sendPasswordReset(usuario.getEmail(), link);
     }
 
